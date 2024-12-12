@@ -12,7 +12,8 @@ func main() {
 	}
 
 	input := "thisisatest"
-	segmented := segmenter.Isegment(input)
+	// input = "this"
+	segmented := segmenter.Segment(input)
 
 	for _, word := range segmented {
 		logrus.Infof("Segmented word: %s", word)
