@@ -21,7 +21,6 @@ type Segmenter struct {
 	Total    float64
 	Limit    int
 	Words    []string
-	Alphabet set
 }
 
 // set is a helper type to represent a set of characters
@@ -34,7 +33,6 @@ func NewSegmenter() *Segmenter {
 		Bigrams:  make(map[string]float64),
 		Limit:    24,
 		Total:    1024908267229.0,
-		Alphabet: set{'a': {}, 'b': {}, 'c': {}, 'd': {}, 'e': {}, 'f': {}, 'g': {}, 'h': {}, 'i': {}, 'j': {}, 'k': {}, 'l': {}, 'm': {}, 'n': {}, 'o': {}, 'p': {}, 'q': {}, 'r': {}, 's': {}, 't': {}, 'u': {}, 'v': {}, 'w': {}, 'x': {}, 'y': {}, 'z': {}, '0': {}, '1': {}, '2': {}, '3': {}, '4': {}, '5': {}, '6': {}, '7': {}, '8': {}, '9': {}},
 	}
 }
 
@@ -218,9 +216,21 @@ func (s *Segmenter) Divide(text string) []pair {
 func (s *Segmenter) Clean(text string) string {
 	var result strings.Builder
 	for _, r := range text {
-		if _, found := s.Alphabet[r]; found {
-			result.WriteRune(r)
+		if target, found := isAlphanumeric(r); found {
+			result.WriteRune(target)
 		}
 	}
 	return result.String()
+}
+
+func isAlphanumeric(c int32) (int32, bool) {
+	if (c >= '0' && c <= '9') || (c >= 'a' && c <= 'z') {
+		return c, true
+	}
+
+	if c >= 'A' && c <= 'Z' {
+		return c - 'A' + 'a', true
+	}
+
+	return 0, false
 }
