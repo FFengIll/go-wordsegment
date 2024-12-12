@@ -55,6 +55,7 @@ func (s *Segmenter) Load() error {
 		logrus.Fatalf("Error reading words.txt: %v", err)
 	}
 	s.Words = strings.Split(string(wordsData), "\n")
+	s.Words = s.Words[:len(s.Words)-1]
 
 	return nil
 }
@@ -65,11 +66,14 @@ func parse(data []byte) map[string]float64 {
 	scanner := bufio.NewScanner(bytes.NewReader(data))
 	for scanner.Scan() {
 		line := scanner.Text()
+		if line == "" {
+			continue
+		}
 		parts := strings.Split(line, "\t")
 		if len(parts) == 2 {
 			var word string
 			var count float64
-			fmt.Sscanf(parts[0], "%s", &word)
+			word = parts[0]
 			fmt.Sscanf(parts[1], "%f", &count)
 			result[word] = count
 		}
