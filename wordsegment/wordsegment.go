@@ -177,12 +177,6 @@ func (s *Segmenter) Isegment(text string) []string {
 			for _, word := range chunkWords[:len(chunkWords)-5] {
 				result = append(result, word)
 			}
-		} else {
-			prefix = strings.Join(chunkWords, "")
-			// Add all the words from the chunk (except the last 5 words which are used as prefix)
-			for _, word := range chunkWords {
-				result = append(result, word)
-			}
 		}
 	}
 
