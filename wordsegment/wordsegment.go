@@ -117,12 +117,6 @@ type pair struct {
 func (s *Segmenter) Segment(text string) []string {
 	memo := make(map[string]scoreWords)
 
-	var prefix string
-	var suffix string
-	var result []string
-
-	println(suffix)
-
 	var search func(text, previous string) (float64, []string)
 
 	search = func(text, previous string) (float64, []string) {
@@ -131,7 +125,7 @@ func (s *Segmenter) Segment(text string) []string {
 		}
 
 		var bestScore = -s.Total
-		var bestWords = []string{text}
+		var bestWords = []string{}
 
 		fixList := s.Divide(text)
 		logrus.Debugf("divided: %v", fixList)
@@ -139,7 +133,7 @@ func (s *Segmenter) Segment(text string) []string {
 			return 0.0, nil
 		}
 		for _, fix := range fixList {
-			prefix, suffix = fix.prefix, fix.suffix
+			prefix, suffix := fix.prefix, fix.suffix
 			prefixScore := math.Log10(s.Score(prefix, previous))
 			var suffixScore float64
 			var suffixWords []string
@@ -165,6 +159,12 @@ func (s *Segmenter) Segment(text string) []string {
 
 		return bestScore, bestWords
 	}
+
+	var prefix string
+	var suffix string
+	var result []string
+
+	println(suffix)
 
 	// Clean the text (equivalent to Python's clean())
 	cleanedText := s.Clean(text)
