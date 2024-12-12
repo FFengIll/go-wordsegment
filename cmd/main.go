@@ -1,7 +1,7 @@
 package main
 
 import (
-	. "github.com/FFengIll/go-wordsegment/wordsegment"
+	. "github.com/FFengIll/go-wordsegment"
 	"github.com/sirupsen/logrus"
 )
 

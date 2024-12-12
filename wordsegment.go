@@ -11,7 +11,7 @@ import (
 	"github.com/sirupsen/logrus"
 )
 
-//go:embed unigrams.txt bigrams.txt words.txt
+//go:embed wordsegment/unigrams.txt wordsegment/bigrams.txt wordsegment/words.txt
 var content embed.FS
 
 // Segmenter represents the word segmentation logic
@@ -38,19 +38,19 @@ func NewSegmenter() *Segmenter {
 
 // Load loads the unigram, bigram, and word data into the Segmenter
 func (s *Segmenter) Load() error {
-	unigramsData, err := content.ReadFile("unigrams.txt")
+	unigramsData, err := content.ReadFile("wordsegment/unigrams.txt")
 	if err != nil {
 		logrus.Fatalf("Error reading unigrams.txt: %v", err)
 	}
 	s.Unigrams = parse(unigramsData)
 
-	bigramsData, err := content.ReadFile("bigrams.txt")
+	bigramsData, err := content.ReadFile("wordsegment/bigrams.txt")
 	if err != nil {
 		logrus.Fatalf("Error reading bigrams.txt: %v", err)
 	}
 	s.Bigrams = parse(bigramsData)
 
-	wordsData, err := content.ReadFile("words.txt")
+	wordsData, err := content.ReadFile("wordsegment/words.txt")
 	if err != nil {
 		logrus.Fatalf("Error reading words.txt: %v", err)
 	}
