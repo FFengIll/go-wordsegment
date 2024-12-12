@@ -38,7 +38,7 @@ func TestClean(t *testing.T) {
 
 func TestSegment0(t *testing.T) {
 	result := []string{"choose", "spain"}
-	segmented := segmenter.Isegment("choosespain")
+	segmented := segmenter.Segment("choosespain")
 	if !equal(result, segmented) {
 		t.Errorf("Expected %v, but got %v", result, segmented)
 	}
@@ -46,7 +46,7 @@ func TestSegment0(t *testing.T) {
 
 func TestSegment1(t *testing.T) {
 	result := []string{"this", "is", "a", "test"}
-	segmented := segmenter.Isegment("thisisatest")
+	segmented := segmenter.Segment("thisisatest")
 	if !equal(result, segmented) {
 		t.Errorf("Expected %v, but got %v", result, segmented)
 	}
@@ -56,7 +56,7 @@ func TestSegment2(t *testing.T) {
 	result := []string{
 		"when", "in", "the", "course", "of", "human", "events", "it", "becomes", "necessary",
 	}
-	segmented := segmenter.Isegment("wheninthecourseofhumaneventsitbecomesnecessary")
+	segmented := segmenter.Segment("wheninthecourseofhumaneventsitbecomesnecessary")
 	if !equal(result, segmented) {
 		t.Errorf("Expected %v, but got %v", result, segmented)
 	}
