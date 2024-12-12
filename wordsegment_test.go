@@ -1,9 +1,11 @@
 package wordsegment
 
 import (
+	"fmt"
 	"testing"
 
 	"github.com/sirupsen/logrus"
+	"github.com/stretchr/testify/assert"
 )
 
 var segmenter *Segmenter
@@ -76,39 +78,14 @@ func TestWords(t *testing.T) {
 	}
 }
 
-// func TestMain(t *testing.T) {
-// 	// Redirect stdout to capture output
-// 	old := os.Stdout
-// 	r, w, _ := os.Pipe()
-// 	os.Stdout = w
+func TestSegmenter_Divide(t *testing.T) {
+	input := "thisisatest"
+	divided := segmenter.Divide(input)
 
-// 	// Create a test file
-// 	err := ioutil.WriteFile("test_input.txt", []byte("choose spain\nthis is a test\n"), 0644)
-// 	if err != nil {
-// 		t.Fatalf("Error writing test input file: %v", err)
-// 	}
-// 	defer os.Remove("test_input.txt")
+	want := "[{t hisisatest} {th isisatest} {thi sisatest} {this isatest} {thisi satest} {thisis atest} {thisisa test} {thisisat est} {thisisate st} {thisisates t} {thisisatest }]"
 
-// 	// Call the main function with the file
-// 	main([]string{"test_input.txt"})
-
-// 	// Close the writer and read the output
-// 	w.Close()
-// 	var buf bytes.Buffer
-// 	_, err = buf.ReadFrom(r)
-// 	if err != nil {
-// 		t.Fatalf("Error reading from pipe: %v", err)
-// 	}
-
-// 	// Compare the result
-// 	expected := "choose spain\nthis is a test\n"
-// 	if buf.String() != expected {
-// 		t.Errorf("Expected %v, but got %v", expected, buf.String())
-// 	}
-
-// 	// Restore stdout
-// 	os.Stdout = old
-// }
+	assert.Equal(t, want, fmt.Sprintf("%v", divided))
+}
 
 // Utility function to compare slices of strings
 func equal(a, b []string) bool {
