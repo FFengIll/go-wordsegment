@@ -1,4 +1,4 @@
-module github.com/FFengIll/go-wordsegment
+module github.com/FFengIll/wordsegment
 
 go 1.17
 
