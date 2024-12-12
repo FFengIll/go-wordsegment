@@ -192,6 +192,10 @@ func (s *Segmenter) Segment(text string) []string {
 			for _, word := range chunkWords[:len(chunkWords)-5] {
 				result = append(result, word)
 			}
+		} else {
+			for _, word := range chunkWords {
+				result = append(result, word)
+			}
 		}
 	}
 
